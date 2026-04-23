@@ -3,7 +3,63 @@ Cần file .bat để khởi động obsidian và chạy các lệnh python sau 
 
 [runobsidian.vbs](https://drive.ttfy.cc/20260421152948_runobsidian.vbs)
 
-File python để upload ảnh lên r2 đồng thời edit lại link trong note.
+-----------
+Cập nhật trên window ta sử dụng Phần mềm Autohotkey trải nghiệm như hammerspoon trên Mac os.
+Sử dụng **AutoHotkey (AHK)** là giải pháp tối ưu nhất trên Windows để có được trải nghiệm mượt mà giống như Hammerspoon trên macOS. AHK sẽ chạy ngầm và "canh" sự kiện của hệ thống, giúp bạn không cần quan tâm đến việc mở Obsidian bằng cách nào (Web Clipper, shortcut, hay mở trực tiếp file `.md`).
+Dưới đây là hướng dẫn chi tiết để thiết lập "bộ canh cửa" này:
+### Bước 1: Cài đặt AutoHotkey
+
+1. Truy cập trang chủ [AutoHotkey](https://www.autohotkey.com/) và tải bản **v2.0** (phiên bản mới nhất và ổn định nhất).
+2. Tiến hành cài đặt như một phần mềm bình thường.
+---
+### Bước 2: Tạo script "Obsidian Watcher"
+Bạn hãy tạo một file mới tên là `ObsidianSync.ahk` (ví dụ lưu tại `E:\Obsidian\ObsidianSync.ahk`) với nội dung sau. Lưu ý tôi đã viết chú thích không dấu theo yêu cầu của bạn:
+AutoHotkey
+
+```
+#Requires AutoHotkey v2.0
+#SingleInstance Force
+
+; --- CAU HINH DUONG DAN ---
+; Thay doi duong dan dung voi may cua ban
+global vaultPath := "E:\Obsidian\Learningnewthings"
+global pythonScript := "E:\Obsidian\obsidian_sync.py"
+global logFile := "E:\Obsidian\log.txt"
+
+; Thong bao script da bat dau chay ngam
+TrayTip "Obsidian Watcher", "Dang theo doi Obsidian...", 1
+
+Loop {
+    ; 1. Doi den khi Obsidian.exe xuat hien
+    ProcessWait "Obsidian.exe"
+    
+    ; 2. Khi Obsidian vua mo: Thuc hien Pull tu GitHub
+    ; Dung RunWait de dam bao lenh chay an (Hide)
+    RunWait 'cmd /c "cd /d ' vaultPath ' && git pull origin main >> ' logFile ' 2>&1"', , "Hide"
+    
+    ; 3. Doi cho den khi Obsidian.exe dong han
+    ProcessWaitClose "Obsidian.exe"
+    
+    ; 4. Sau khi dong: Chay Python sync R2
+    RunWait 'python "' pythonScript '" >> "' logFile '" 2>&1', , "Hide"
+    
+    ; 5. Thuc hien Push len GitHub
+    RunWait 'cmd /c "cd /d ' vaultPath ' && git add . && git commit -m "Auto sync Windows: %A_Now%" && git push origin main >> ' logFile ' 2>&1"', , "Hide"
+    
+    ; Thong bao da dong bo xong (Hien thi trong 2 giay)
+    TrayTip "Obsidian Sync", "Da dong bo xong len GitHub va R2!", 1
+}
+```
+---
+### Bước 3: Kích hoạt Web Clipper thông qua AHK
+Vì AHK đã "canh" tiến trình `Obsidian.exe`, khi Web Clipper gửi lệnh mở Obsidian, AHK sẽ ngay lập tức nhận ra và thực hiện lệnh `git pull` trước khi bạn kịp bắt đầu lưu clip.
+**Để script này luôn chạy cùng máy tính:**
+1. Nhấn **Windows + R**, gõ `shell:startup` và nhấn Enter.
+    
+2. Tạo một **Shortcut** của file `ObsidianSync.ahk` vào thư mục này.
+    
+3. Từ giờ, mỗi khi bạn bật máy, "người gác cổng" AHK sẽ tự động làm việc.
+## File python để upload ảnh lên r2 đồng thời edit lại link trong note.
 ```
 import os
 import re
@@ -122,7 +178,7 @@ def main():
 if __name__ == "__main__":
     main()
 ```
-trên mac os thì dùng hammerspoon hành động mỗi lần bật và tắt obsidian.
+## Trên mac os thì dùng hammerspoon hành động mỗi lần bật và tắt obsidian.
 **Bước 1: Chỉnh lại file `.sh` thành 2 phần** Vì Hammerspoon có thể nhận biết lúc nào app **Mở** và lúc nào app **Đóng**, chúng ta nên tách script ra. Bạn hãy sửa file `/Users/destiny/Documents/Mvault/obsidian_sync.sh` thành:
 
 Bash

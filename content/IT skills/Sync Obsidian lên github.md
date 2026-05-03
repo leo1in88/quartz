@@ -21,21 +21,24 @@ AutoHotkey
 #SingleInstance Force
 
 ; --- CAU HINH DUONG DAN ---
-; Thay doi duong dan dung voi may cua ban
+; Dung tieng Viet khong dau cho ghi chu [cite: 2026-04-02]
+global iCloudPath := "E:\iCloudDrive\iCloud~md~obsidian\Mvault"
 global vaultPath := "E:\Obsidian\Learningnewthings"
 global pythonScript := "E:\Obsidian\obsidian_sync.py"
 global logFile := "E:\Obsidian\log.txt"
 
-; Thong bao script da bat dau chay ngam
-TrayTip "Obsidian Watcher", "Dang theo doi Obsidian...", 1
+TrayTip "Obsidian Watcher", "Dang theo doi: iCloud -> Local Vault", 1
 
 Loop {
     ; 1. Doi den khi Obsidian.exe xuat hien
     ProcessWait "Obsidian.exe"
     
-    ; 2. Khi Obsidian vua mo: Thuc hien Pull tu GitHub
-    ; Dung RunWait de dam bao lenh chay an (Hide)
-    RunWait 'cmd /c "cd /d ' vaultPath ' && git pull origin main >> ' logFile ' 2>&1"', , "Hide"
+    ; 2. Khi Obsidian vua mo: Dong bo tu iCloud vao thu muc Local
+    ; /E: Chep tat ca thu muc con
+    ; /Z: Chep o che do co the tiep tuc neu mat ket noi
+    ; /XO: Bo qua cac file cu hon (chi lay file moi tu iCloud)
+    ; /R:1 /W:1: Thu lai 1 lan neu loi, doi 1 giay
+    RunWait 'cmd /c robocopy "' iCloudPath '" "' vaultPath '" /E /Z /XO /R:1 /W:1 >> "' logFile '" 2>&1', , "Hide"
     
     ; 3. Doi cho den khi Obsidian.exe dong han
     ProcessWaitClose "Obsidian.exe"
@@ -43,11 +46,10 @@ Loop {
     ; 4. Sau khi dong: Chay Python sync R2
     RunWait 'python "' pythonScript '" >> "' logFile '" 2>&1', , "Hide"
     
-    ; 5. Thuc hien Push len GitHub
-    RunWait 'cmd /c "cd /d ' vaultPath ' && git add . && git commit -m "Auto sync Windows: %A_Now%" && git push origin main >> ' logFile ' 2>&1"', , "Hide"
+    ; 5. Thuc hien Push len GitHub (Luu tru backup)
+    RunWait 'cmd /c "cd /d ' vaultPath ' && git add . && git commit -m "Auto sync Windows (iCloud): %A_Now%" && git push origin main >> ' logFile ' 2>&1"', , "Hide"
     
-    ; Thong bao da dong bo xong (Hien thi trong 2 giay)
-    TrayTip "Obsidian Sync", "Da dong bo xong len GitHub va R2!", 1
+    TrayTip "Obsidian Sync", "Da dong bo xong tu iCloud va day len GitHub!", 1
 }
 ```
 ---

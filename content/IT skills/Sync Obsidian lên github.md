@@ -21,35 +21,38 @@ AutoHotkey
 #SingleInstance Force
 
 ; --- CAU HINH DUONG DAN ---
-; Dung tieng Viet khong dau cho ghi chu [cite: 2026-04-02]
-global iCloudPath := "E:\iCloudDrive\iCloud~md~obsidian\Mvault"
-global vaultPath := "E:\Obsidian\Learningnewthings"
+global iCloudPath   := "E:\iCloudDrive\iCloud~md~obsidian\Mvault"
+global vaultPath    := "E:\Obsidian\Learningnewthings"
 global pythonScript := "E:\Obsidian\obsidian_sync.py"
-global logFile := "E:\Obsidian\log.txt"
+global logFile      := "E:\Obsidian\log.txt"
 
-TrayTip "Obsidian Watcher", "Dang theo doi: iCloud -> Local Vault", 1
+TrayTip "Obsidian Watcher", "AHK dang quan ly: Python -> iCloud -> GitHub", 1
 
 Loop {
     ; 1. Doi den khi Obsidian.exe xuat hien
     ProcessWait "Obsidian.exe"
     
-    ; 2. Khi Obsidian vua mo: Dong bo tu iCloud vao thu muc Local
-    ; /E: Chep tat ca thu muc con
-    ; /Z: Chep o che do co the tiep tuc neu mat ket noi
-    ; /XO: Bo qua cac file cu hon (chi lay file moi tu iCloud)
-    ; /R:1 /W:1: Thu lai 1 lan neu loi, doi 1 giay
-    RunWait 'cmd /c robocopy "' iCloudPath '" "' vaultPath '" /E /Z /XO /R:1 /W:1 >> "' logFile '" 2>&1', , "Hide"
+    ; 2. SYNC IN: Tu iCloud vao Local (Lay ghi chu moi tu Mac/iPhone)
+    RunWait 'cmd /c robocopy "' iCloudPath '" "' vaultPath '" /E /XO /R:1 /W:1 >> "' logFile '" 2>&1', , "Hide"
     
     ; 3. Doi cho den khi Obsidian.exe dong han
     ProcessWaitClose "Obsidian.exe"
     
-    ; 4. Sau khi dong: Chay Python sync R2
+    ; --- BAT DAU QUY TRINH SAU KHI DONG APP ---
+    TrayTip "Obsidian Sync", "Dang xu ly du lieu...", 1
+
+    ; 4. CHAY PYTHON TRUOC (Quan trong nhat)
+    ; Lenh nay se lam sach ghi chu tai vaultPath
     RunWait 'python "' pythonScript '" >> "' logFile '" 2>&1', , "Hide"
     
-    ; 5. Thuc hien Push len GitHub (Luu tru backup)
-    RunWait 'cmd /c "cd /d ' vaultPath ' && git add . && git commit -m "Auto sync Windows (iCloud): %A_Now%" && git push origin main >> ' logFile ' 2>&1"', , "Hide"
+    ; 5. SYNC OUT (Sau khi Python da lam sach)
+    ; Day ban "sach" tu vaultPath sang iCloudPath
+    RunWait 'cmd /c robocopy "' vaultPath '" "' iCloudPath '" /E /XO /R:1 /W:1 >> "' logFile '" 2>&1', , "Hide"
     
-    TrayTip "Obsidian Sync", "Da dong bo xong tu iCloud va day len GitHub!", 1
+    ; 6. GIT PUSH (Backup ban "sach" len GitHub)
+    RunWait 'cmd /c "cd /d ' vaultPath ' && git add . && git commit -m "Auto sync (Cleaned): %A_Now%" && git push origin main >> ' logFile ' 2>&1"', , "Hide"
+    
+    TrayTip "Obsidian Sync", "Moi thu da duoc lam sach va dong bo!", 1
 }
 ```
 ---
@@ -223,38 +226,33 @@ if __name__ == "__main__":
 
     main()
 ```
-## File python để upload ảnh lên r2 đồng thời edit lại link trong note. Sau đó đồng bộ vào folder icloud (dùng cho máy window)
+## File python để upload ảnh lên r2 đồng thời edit lại link trong note.  (dùng cho máy window)
 ```
 import os
 import re
 import boto3
 import mimetypes
 import datetime
-import shutil  # <--- THEM THU VIEN NAY
 from urllib.parse import quote
 from pathlib import Path
-from concurrent.futures import ThreadPoolExecutor
 
-# --- 1. CAU HINH R2 (Giu nguyen) ---
-R2_ACCOUNT_ID = "R2_ACCOUNT_ID"
-R2_ACCESS_KEY = "R2_ACCESS_KEY"
-R2_SECRET_KEY = "R2_SECRET_KEY"
+# --- 1. CAU HINH R2 (LUU Y: HAY DOI KEY SAU KHI XONG DE BAO MAT) ---
+R2_ACCOUNT_ID = "aa5d1765ecaeb453d7403a2079dbd0e6"
+R2_ACCESS_KEY = "1e77ba49108e93876682253d26b3e124"
+R2_SECRET_KEY = "4557bd1a1db6fdab68763697d1d3db1f2348199879c45cb6726c8a9a7709ba24"
 R2_BUCKET_NAME = "drive"
 R2_PUBLIC_URL = "https://drive.ttfy.cc"
 
-# --- 2. CAU HINH VAULT VA DESTINATION ---
-MY_VAULT = r"E:\Obsidian\Learningnewthings" 
-SYNC_DEST = r"E:\iCloudDrive\iCloud~md~obsidian\Learningnewthings"  # <--- DUONG DAN THU MUC DICH
+# --- 2. CAU HINH VAULT ---
+MY_VAULT = r"E:\Obsidian\Learningnewthings"
 
-# --- 3. PHAN LOAI FILE ---
+# --- 3. REGEX & CONFIG ---
 IMAGE_EXTS = ['png', 'jpg', 'jpeg', 'gif', 'webp', 'svg']
 FILE_EXTS = ['json', 'bat', 'sh', 'py', 'js', 'pdf', 'zip', 'vbs']
 ALL_EXTS = IMAGE_EXTS + FILE_EXTS
-
 EXT_PATTERN = '|'.join(ALL_EXTS)
+# Regex nay bat ca [[file.png]] va [text](file.png)
 REGEX_LINKS = rf'!?\[\[(.*?\.({EXT_PATTERN}))\]\]|!?\[.*?\]\((.*?\.({EXT_PATTERN}))\)'
-
-file_map = {}
 
 s3_client = boto3.client(
     service_name="s3",
@@ -264,92 +262,95 @@ s3_client = boto3.client(
     region_name="auto",
 )
 
-def upload_and_cleanup(local_path, file_name_r2):
-    """Upload len R2 voi ten moi va xoa file local"""
-    try:
-        ctype, _ = mimetypes.guess_type(local_path)
-        ctype = ctype or 'application/octet-stream'
-        
-        s3_client.upload_file(local_path, R2_BUCKET_NAME, file_name_r2, ExtraArgs={'ContentType': ctype})
-        
-        os.remove(local_path) 
-        print(f"    [DELETED] {os.path.basename(local_path)} -> {file_name_r2}")
-        return True
-    except Exception as e:
-        print(f"    [ERROR] Khong the upload {file_name_r2}: {e}")
-        return False
+def main():
+    print(f"--- Bat dau xu ly Vault: {datetime.datetime.now()} ---")
+    
+    # Buoc 1: Lap ban do file ton tai trong Vault
+    file_map = {}
+    for root, _, files in os.walk(MY_VAULT):
+        for file in files:
+            # Uu tien file o thu muc sau hon neu trung ten
+            file_map[file] = os.path.join(root, file)
 
-def process_note(note_path):
-    try:
+    all_notes = []
+    for root, _, files in os.walk(MY_VAULT):
+        for file in files:
+            if file.endswith(".md"):
+                all_notes.append(os.path.join(root, file))
+
+    # Buoc 2: Tim tat ca cac link file can upload trong tat ca ghi chu
+    links_to_upload = {} # {file_name_original: online_url}
+    files_to_delete = set()
+
+    for note_path in all_notes:
         with open(note_path, 'r', encoding='utf-8') as f:
             content = f.read()
-
-        matches = re.findall(REGEX_LINKS, content)
-        found_links = list(set([m[0] if m[0] else m[2] for m in matches]))
         
-        has_changed = False
-        for link in found_links:
+        matches = re.findall(REGEX_LINKS, content)
+        for m in matches:
+            link = m[0] if m[0] else m[2]
             if link.startswith('http'): continue
             
-            file_name_original = os.path.basename(link)
-            ext = file_name_original.split('.')[-1].lower()
-            
-            if file_name_original in file_map:
-                full_path = Path(file_map[file_name_original])
+            file_name = os.path.basename(link)
+            if file_name in file_map and file_name not in links_to_upload:
+                local_path = file_map[file_name]
                 
-                if full_path.exists() and full_path.is_file():
-                    timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
-                    clean_name = file_name_original.replace(" ", "_")
-                    file_name_r2 = f"{timestamp}_{clean_name}"
+                # Tao ten file duy nhat tren R2
+                timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+                clean_name = file_name.replace(" ", "_")
+                file_name_r2 = f"{timestamp}_{clean_name}"
+                
+                # Upload len R2
+                try:
+                    ctype, _ = mimetypes.guess_type(local_path)
+                    ctype = ctype or 'application/octet-stream'
+                    s3_client.upload_file(local_path, R2_BUCKET_NAME, file_name_r2, ExtraArgs={'ContentType': ctype})
                     
-                    print(f"-> Processing: {file_name_original}")
-                    
-                    if upload_and_cleanup(str(full_path), file_name_r2):
-                        encoded_name = quote(file_name_r2)
-                        online_url = f"{R2_PUBLIC_URL}/{encoded_name}"
-                        
-                        prefix = "!" if ext in IMAGE_EXTS else ""
-                        new_markdown_link = f"{prefix}[{file_name_original}]({online_url})"
-                        
-                        content = re.sub(rf'!?\[\[{re.escape(link)}\]\]', new_markdown_link, content)
-                        content = re.sub(rf'!?\[.*?\]\({re.escape(link)}\)', new_markdown_link, content)
-                        
-                        has_changed = True
+                    online_url = f"{R2_PUBLIC_URL}/{quote(file_name_r2)}"
+                    links_to_upload[file_name] = (online_url, file_name_r2)
+                    files_to_delete.add(local_path)
+                    print(f"   [UPLOADED] {file_name} -> {file_name_r2}")
+                except Exception as e:
+                    print(f"   [ERROR] Khong the upload {file_name}: {e}")
+
+    # Buoc 3: Quay lai cap nhat tat ca ghi chu voi link moi
+    for note_path in all_notes:
+        with open(note_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+        
+        has_changed = False
+        for original_name, (online_url, _) in links_to_upload.items():
+            ext = original_name.split('.')[-1].lower()
+            prefix = "!" if ext in IMAGE_EXTS else ""
+            new_link = f"{prefix}[{original_name}]({online_url})"
+            
+            # Thay the Wikilink: [[file.png]]
+            pattern_wiki = rf'!?\[\[{re.escape(original_name)}\]\]'
+            if re.search(pattern_wiki, content):
+                content = re.sub(pattern_wiki, new_link, content)
+                has_changed = True
+            
+            # Thay the Markdown link: [anything](file.png)
+            pattern_md = rf'!?\[.*?\]\({re.escape(original_name)}\)'
+            if re.search(pattern_md, content):
+                content = re.sub(pattern_md, new_link, content)
+                has_changed = True
 
         if has_changed:
             with open(note_path, 'w', encoding='utf-8') as f:
                 f.write(content)
-            print(f"[DONE] Updated: {os.path.basename(note_path)}")
-            
-    except Exception as e:
-        print(f"Loi tai file {note_path}: {e}")
+            print(f"   [UPDATED] {os.path.basename(note_path)}")
 
-def sync_vault():
-    """Copy toan bo thu muc sang vung dich, ghi de neu da ton tai"""
-    print(f"\n--- DANG BAT DA DONG BO SANG {SYNC_DEST} ---")
-    try:
-        # Neu thu muc dich da ton tai, shutil.copytree voi dirs_exist_ok se ghi de file trung ten
-        # Neu muon xoa sach thu muc dich truoc khi copy thi dung shutil.rmtree(SYNC_DEST) truoc
-        shutil.copytree(MY_VAULT, SYNC_DEST, dirs_exist_ok=True)
-        print(f"[SUCCESS] Da dong bo toan bo vault sang {SYNC_DEST}")
-    except Exception as e:
-        print(f"[ERROR] Khong the dong bo: {e}")
+    # Buoc 4: Xoa file local sau khi tat ca ghi chu da duoc cap nhat
+    for f_path in files_to_delete:
+        try:
+            if os.path.exists(f_path):
+                os.remove(f_path)
+                print(f"   [CLEANED] {os.path.basename(f_path)}")
+        except Exception as e:
+            print(f"   [ERROR] Khong the xoa {f_path}: {e}")
 
-def main():
-    # Lap ban do file de tim anh o moi thu muc
-    for root, _, files in os.walk(MY_VAULT):
-        for file in files:
-            file_map[file] = os.path.join(root, file)
-
-    all_notes = [os.path.join(r, f) for r, _, fs in os.walk(MY_VAULT) for f in fs if f.endswith(".md")]
-    
-    # Thuc hien xu ly upload va cleanup regex
-    with ThreadPoolExecutor(max_workers=5) as executor:
-        for note in all_notes:
-            executor.submit(process_note, note)
-    
-    # Sau khi tat ca cac thread da xong, tien hanh sync folder
-    sync_vault()
+    print("--- Hoan tat quy trinh ---")
 
 if __name__ == "__main__":
     main()

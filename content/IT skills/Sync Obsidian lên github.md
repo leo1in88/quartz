@@ -1,6 +1,5 @@
 Cần file .bat để khởi động obsidian và chạy các lệnh python sau đó, cần file vbs để ẩn tiến trình chạy terminal của file .bat 
 [Obsidian.bat](https://drive.ttfy.cc/20260421152949_Obsidian.bat)
-
 [runobsidian.vbs](https://drive.ttfy.cc/20260421152948_runobsidian.vbs)
 
 -----------
@@ -8,12 +7,17 @@ Cập nhật trên window ta sử dụng Phần mềm Autohotkey trải nghiệm
 Sử dụng **AutoHotkey (AHK)** là giải pháp tối ưu nhất trên Windows để có được trải nghiệm mượt mà giống như Hammerspoon trên macOS. AHK sẽ chạy ngầm và "canh" sự kiện của hệ thống, giúp bạn không cần quan tâm đến việc mở Obsidian bằng cách nào (Web Clipper, shortcut, hay mở trực tiếp file `.md`).
 Dưới đây là hướng dẫn chi tiết để thiết lập "bộ canh cửa" này:
 ### Bước 1: Cài đặt AutoHotkey
-
 1. Truy cập trang chủ [AutoHotkey](https://www.autohotkey.com/) và tải bản **v2.0** (phiên bản mới nhất và ổn định nhất).
 2. Tiến hành cài đặt như một phần mềm bình thường.
 ---
 ### Bước 2: Tạo script "Obsidian Watcher"
 Bạn hãy tạo một file mới tên là `ObsidianSync.ahk` (ví dụ lưu tại `E:\Obsidian\ObsidianSync.ahk`) với nội dung sau. Lưu ý tôi đã viết chú thích không dấu theo yêu cầu của bạn:
+### Bước 3: Kích hoạt Web Clipper thông qua AHK
+Vì AHK đã "canh" tiến trình `Obsidian.exe`, khi Web Clipper gửi lệnh mở Obsidian, AHK sẽ ngay lập tức nhận ra và thực hiện lệnh `git pull` trước khi bạn kịp bắt đầu lưu clip.
+**Để script này luôn chạy cùng máy tính:**
+1. Nhấn **Windows + R**, gõ `shell:startup` và nhấn Enter.
+2. Tạo một **Shortcut** của file `ObsidianSync.ahk` vào thư mục này.
+3. Từ giờ, mỗi khi bạn bật máy, "người gác cổng" AHK sẽ tự động làm việc
 AutoHotkey
 
 ```
@@ -21,10 +25,10 @@ AutoHotkey
 #SingleInstance Force
 
 ; --- CAU HINH DUONG DAN ---
-global iCloudPath   := "E:\iCloudDrive\iCloud~md~obsidian\Mvault"
-global vaultPath    := "E:\Obsidian\Learningnewthings"
-global pythonScript := "E:\Obsidian\obsidian_sync.py"
-global logFile      := "E:\Obsidian\log.txt"
+global iCloudPath   := "C:\Users\mlight\iCloudDrive\iCloud~md~obsidian\Mvault"
+global vaultPath    := "G:\Obsidian\Learningnewthings"
+global pythonScript := "G:\Obsidian\obsidian_sync.py"
+global logFile      := "G:\Obsidian\log.txt"
 
 TrayTip "Obsidian Watcher", "AHK dang quan ly: Python -> iCloud -> GitHub", 1
 

@@ -25,38 +25,31 @@ AutoHotkey
 #SingleInstance Force
 
 ; --- CAU HINH DUONG DAN ---
-global iCloudPath   := "C:\Users\mlight\iCloudDrive\iCloud~md~obsidian\Mvault"
 global vaultPath    := "G:\Obsidian\Learningnewthings"
 global pythonScript := "G:\Obsidian\obsidian_sync.py"
-global logFile      := "G:\Obsidian\log.txt"
 
-TrayTip "Obsidian Watcher", "AHK dang quan ly: Python -> iCloud -> GitHub", 1
+TrayTip "Obsidian Watcher", "AHK dang quan ly: Chay Python -> Git Push", 1
 
 Loop {
+    global vaultPath, pythonScript
+
     ; 1. Doi den khi Obsidian.exe xuat hien
     ProcessWait "Obsidian.exe"
     
-    ; 2. SYNC IN: Tu iCloud vao Local (Lay ghi chu moi tu Mac/iPhone)
-    RunWait 'cmd /c robocopy "' iCloudPath '" "' vaultPath '" /E /XO /R:1 /W:1 >> "' logFile '" 2>&1', , "Hide"
-    
-    ; 3. Doi cho den khi Obsidian.exe dong han
+    ; 2. Doi cho den khi Obsidian.exe dong han (Da bo hoan toan cac buoc Sync In)
     ProcessWaitClose "Obsidian.exe"
     
     ; --- BAT DAU QUY TRINH SAU KHI DONG APP ---
     TrayTip "Obsidian Sync", "Dang xu ly du lieu...", 1
 
-    ; 4. CHAY PYTHON TRUOC (Quan trong nhat)
-    ; Lenh nay se lam sach ghi chu tai vaultPath
-    RunWait 'python "' pythonScript '" >> "' logFile '" 2>&1', , "Hide"
+    ; 3. CHAY PYTHON TRUOC - Xu ly lam sach du lieu
+    RunWait 'cmd /c python "' pythonScript '"', , "Hide"
     
-    ; 5. SYNC OUT (Sau khi Python da lam sach)
-    ; Day ban "sach" tu vaultPath sang iCloudPath
-    RunWait 'cmd /c robocopy "' vaultPath '" "' iCloudPath '" /E /XO /R:1 /W:1 >> "' logFile '" 2>&1', , "Hide"
+    ; 4. GIT PUSH VÀO CUỐI PHIÊN - Chi thuc hien add, commit va push
+    gitPushCmd := Format('cmd /c "cd /d "{1}" && git add . && git commit -m "Auto sync (Cleaned): {2}" && git push origin main"', vaultPath, A_Now)
+    RunWait gitPushCmd, , "Hide"
     
-    ; 6. GIT PUSH (Backup ban "sach" len GitHub)
-    RunWait 'cmd /c "cd /d ' vaultPath ' && git add . && git commit -m "Auto sync (Cleaned): %A_Now%" && git push origin main >> ' logFile ' 2>&1"', , "Hide"
-    
-    TrayTip "Obsidian Sync", "Moi thu da duoc lam sach va dong bo!", 1
+    TrayTip "Obsidian Sync", "Moi thu da duoc lam sach va push len GitHub!", 1
 }
 ```
 ---

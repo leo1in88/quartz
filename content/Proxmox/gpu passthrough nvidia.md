@@ -38,11 +38,6 @@ grep -i "(EE)" /home/minh/.xorgxrdp.*.log
 
 ---
 
----
-
----
-
----
 
 Chào bạn, combo E5 2680 v4 và RTX 3060 là một hệ thống rất mạnh mẽ và lý tưởng cho các tác vụ máy chủ. Khác với Virtual Machine (VM) sử dụng PCIe passthrough nguyên cụm, LXC (Linux Container) chia sẻ chung kernel với Proxmox host. Do đó, nguyên tắc cốt lõi ở đây là: **Cài driver trên Host -> Đẩy device nodes vào cấu hình LXC -> Cài lại đúng bản driver đó trong LXC nhưng bỏ qua kernel module.**
 

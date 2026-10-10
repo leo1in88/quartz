@@ -2,7 +2,7 @@
 // Khai bao cac thong so cau hinh
 const SHOPIFY_STORE_URL = 'bookaesthetics.myshopify.com';
 const API_VERSION = '2024-04';
-const ACCESS_TOKEN = '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';
+const ACCESS_TOKEN = '**************************';
 
 // Ham doc bang gia tu sheet Price_Rules
 function getPriceMap() {

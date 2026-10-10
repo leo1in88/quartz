@@ -10,61 +10,62 @@ WG_SOURCE="/root/wg-configs"
 WG_TARGET="/etc/wireguard"
 XRAY_CONFIG="/usr/local/etc/xray/config.json"
 
-BASE_PORT=11001
-BASE_ID=602
+START_PORT=11001
 
-echo "🚀 SMART SYNC (STABLE PORT MODE)..."
+echo "🚀 SMART SYNC START..."
 
 # =========================
-# 1. ADD / UPDATE
+# 1. SYNC WG CONFIGS
 # =========================
 
-declare -A SOURCE_SET
+declare -A EXISTING
 
+# scan existing interfaces
+for conf in $WG_TARGET/wg*.conf; do
+    [ -e "$conf" ] || continue
+    name=$(basename "$conf" .conf)
+
+    if [ "$name" != "wg0" ]; then
+        EXISTING[$name]=1
+    fi
+done
+
+# add / update
 for file in $WG_SOURCE/*.conf; do
     [ -e "$file" ] || continue
 
     ID=$(basename "$file" | grep -o '[0-9]\+')
     IFACE="wg$ID"
 
-    SOURCE_SET[$IFACE]=1
-
     echo "👉 Sync $IFACE"
 
     cp "$file" "$WG_TARGET/$IFACE.conf"
 
-    # ensure Table off
+    # ensure Table = off
     grep -q "Table = off" "$WG_TARGET/$IFACE.conf" || \
     sed -i '/\[Interface\]/a Table = off' "$WG_TARGET/$IFACE.conf"
 
-    # start if not running
+    # if not running → start
     if ! ip link show $IFACE > /dev/null 2>&1; then
         echo "⚡ Start $IFACE"
         wg-quick up $IFACE
         systemctl enable wg-quick@$IFACE
     fi
+
+    unset EXISTING[$IFACE]
 done
 
 # =========================
-# 2. REMOVE DELETED
+# 2. REMOVE DELETED CONFIGS
 # =========================
 
-for conf in $WG_TARGET/wg*.conf; do
-    [ -e "$conf" ] || continue
+for IFACE in "${!EXISTING[@]}"; do
+    echo "❌ Remove $IFACE"
 
-    name=$(basename "$conf" .conf)
+    wg-quick down $IFACE 2>/dev/null
+    systemctl disable wg-quick@$IFACE 2>/dev/null
 
-    if [[ "$name" == "wg0" ]]; then
-        continue
-    fi
-
-    if [[ -z "${SOURCE_SET[$name]}" ]]; then
-        echo "❌ Remove $name"
-
-        wg-quick down $name 2>/dev/null
-        systemctl disable wg-quick@$name 2>/dev/null
-        rm -f "$WG_TARGET/$name.conf"
-    fi
+    rm -f "$WG_TARGET/$IFACE.conf"
 done
 
 # =========================
@@ -73,136 +74,130 @@ done
 
 echo "🧠 Generating Xray config..."
 
-# Khoi tao cac khoi cau hinh tinh (Mac dinh luon co)
-INBOUNDS_STR="[
+PORT=$START_PORT
+
+cat > $XRAY_CONFIG <<EOF
+{
+  "log": { "loglevel": "warning" },
+
+  "inbounds": [
     {
-      \"tag\": \"socks-wireguard\",
-      \"listen\": \"0.0.0.0\",
-      \"port\": 10808,
-      \"protocol\": \"socks\",
-      \"settings\": { \"udp\": true },
-      \"sniffing\": { \"enabled\": true, \"destOverride\": [\"http\", \"tls\", \"quic\"] }
+      "tag": "socks-wireguard",
+      "listen": "0.0.0.0",
+      "port": 10808,
+      "protocol": "socks",
+      "settings": { "udp": true }
     },
     {
-      \"tag\": \"socks-niceproxy\",
-      \"listen\": \"0.0.0.0\",
-      \"port\": 10809,
-      \"protocol\": \"socks\",
-      \"settings\": { \"udp\": true },
-      \"sniffing\": { \"enabled\": true, \"destOverride\": [\"http\", \"tls\", \"quic\"] }
-    }"
+      "tag": "socks-niceproxy",
+      "listen": "0.0.0.0",
+      "port": 10809,
+      "protocol": "socks",
+      "settings": { "udp": true }
+    }
+EOF
 
-OUTBOUNDS_STR="[
-    {
-      \"tag\": \"wireguard-out\",
-      \"protocol\": \"freedom\",
-      \"streamSettings\": { \"sockopt\": { \"interface\": \"wg0\" } }
-    }"
-
-ROUTING_STR="[
-      { \"type\": \"field\", \"inboundTag\": [\"dns-internal\"], \"outboundTag\": \"wireguard-out\" },
-      { \"type\": \"field\", \"inboundTag\": [\"socks-wireguard\"], \"outboundTag\": \"wireguard-out\" },
-      { \"type\": \"field\", \"inboundTag\": [\"socks-niceproxy\"], \"outboundTag\": \"niceproxy-out\" }"
-
-# Gan dung bien chay cong dynamic tu bien goc BASE_PORT
-PORT=$BASE_PORT
-
-# Quet cac card WireGuard dong va noi chuoi
+# dynamic inbounds
 for conf in $(ls $WG_TARGET | grep '^wg[0-9]' | sort); do
     IFACE=${conf%.conf}
-    
-    # Noi chuoi cho Inbounds dong
-    INBOUNDS_STR+=",
-    { 
-      \"tag\": \"$IFACE-in\", 
-      \"listen\": \"0.0.0.0\", 
-      \"port\": $PORT, 
-      \"protocol\": \"socks\", 
-      \"settings\": { \"udp\": true }, 
-      \"sniffing\": { \"enabled\": true, \"destOverride\": [\"http\", \"tls\", \"quic\"] } 
-    }"
-    
-    # Noi chuoi cho Outbounds dong
-    OUTBOUNDS_STR+=",
-    {
-      \"tag\": \"$IFACE-out\",
-      \"protocol\": \"freedom\",
-      \"streamSettings\": { \"sockopt\": { \"interface\": \"$IFACE\" } }
-    }"
-    
-    # Noi chuoi cho Routing rules dong
-    ROUTING_STR+=",
-      {
-        \"type\": \"field\",
-        \"inboundTag\": [\"$IFACE-in\"],
-        \"outboundTag\": \"$IFACE-out\"
-      }"
-    
+    echo "," >> $XRAY_CONFIG
+    echo "    { \"tag\": \"$IFACE-in\", \"listen\": \"0.0.0.0\", \"port\": $PORT, \"protocol\": \"socks\", \"settings\": { \"udp\": true } }" >> $XRAY_CONFIG
     PORT=$((PORT+1))
 done
 
-# Bo sung cac outbounds co dinh khac o cuoi va dong mang JSON
-OUTBOUNDS_STR+=",
+cat >> $XRAY_CONFIG <<EOF
+  ],
+
+  "outbounds": [
     {
-      \"tag\": \"niceproxy-out\",
-      \"protocol\": \"socks\",
-      \"settings\": {
-        \"servers\": [
+      "tag": "wireguard-out",
+      "protocol": "freedom",
+      "streamSettings": {
+        "sockopt": { "interface": "wg0" }
+      }
+    },
+EOF
+
+# dynamic outbounds
+for conf in $(ls $WG_TARGET | grep '^wg[0-9]' | sort); do
+    IFACE=${conf%.conf}
+    cat >> $XRAY_CONFIG <<EOF
+    {
+      "tag": "$IFACE-out",
+      "protocol": "freedom",
+      "streamSettings": {
+        "sockopt": { "interface": "$IFACE" }
+      }
+    },
+EOF
+done
+
+# niceproxy (NO comma issue)
+cat >> $XRAY_CONFIG <<EOF
+    {
+      "tag": "niceproxy-out",
+      "protocol": "socks",
+      "settings": {
+        "servers": [
           {
-            \"address\": \"niceproxy.io\",
-            \"port\": 17521,
-            \"users\": [
+            "address": "niceproxy.io",
+            "port": 17521,
+            "users": [
               {
-                \"user\": \"proxy_usa_bv0X-country-US-ssid-dp4z3sRx2x\",
-                \"pass\": \"binhminh123\"
+                "user": "proxy_usa_bv0X-country-US-ssid-dp4z3sRx2x",
+                "pass": "binhminh123"
               }
             ]
           }
         ]
       }
     }
-]"
+  ],
 
-INBOUNDS_STR+=" ]"
-ROUTING_STR+=" ]"
-
-# Ghi toan bo cau truc vao file config.json
-cat > $XRAY_CONFIG <<EOF
-{
-  "log": { "loglevel": "warning" },
-  "dns": {
-    "servers": [
-      {
-        "address": "https://1.1.1.1/dns-query",
-        "tag": "dns-internal"
-      }
-    ]
-  },
-  "inbounds": $INBOUNDS_STR,
-  "outbounds": $OUTBOUNDS_STR,
   "routing": {
-    "domainStrategy": "AsIs",
-    "rules": $ROUTING_STR
+    "rules": [
+      {
+        "type": "field",
+        "inboundTag": ["socks-wireguard"],
+        "outboundTag": "wireguard-out"
+      },
+      {
+        "type": "field",
+        "inboundTag": ["socks-niceproxy"],
+        "outboundTag": "niceproxy-out"
+      },
+EOF
+
+# dynamic routing
+for conf in $(ls $WG_TARGET | grep '^wg[0-9]' | sort); do
+    IFACE=${conf%.conf}
+    
+    cat >> $XRAY_CONFIG <<EOF
+      {
+        "type": "field",
+        "inboundTag": ["$IFACE-in"],
+        "outboundTag": "$IFACE-out"
+      },
+EOF
+done
+
+# remove last comma
+sed -i '$ s/,$//' $XRAY_CONFIG
+
+cat >> $XRAY_CONFIG <<EOF
+    ]
   }
 }
 EOF
 
 # =========================
-# 4. KHOI DONG LAI DICH VU XRAY
+# 4. RELOAD XRAY (NO RESTART)
 # =========================
-echo "♻️ Testing and Reloading Xray..."
 
-# Kiem tra cu phap truoc khi restart de bao dam an toan
-if /usr/local/bin/xray -test -config $XRAY_CONFIG > /dev/null 2>&1; then
-    echo "✅ Configuration is OK. Restarting Xray..."
-    systemctl restart xray
-    systemctl status xray --no-pager | grep -E "Active:"
-else
-    echo "❌ Lỗi: Cấu trúc file JSON sinh ra bị sai! Vui lòng kiểm tra lại cấu hình."
-    /usr/local/bin/xray -test -config $XRAY_CONFIG
-fi
+echo "♻️ Reload Xray..."
+systemctl reload xray 2>/dev/null || systemctl restart xray
 
-echo "🏁 ALL PROCESSES DONE!"
+echo "✅ DONE!"
 ```
 # 🚀 CÁCH DÙNG
 

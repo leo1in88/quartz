@@ -1,0 +1,1 @@
+![Pasted image 20261010173528.png](https://drive.ttfy.cc/20261010173743_Pasted_image_20261010173528.png)

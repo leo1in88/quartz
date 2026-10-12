@@ -347,24 +347,4 @@ Nhưng đây vẫn là dự án phiên bản `0.1.0`, dù có CI và khá nhiề
 
 Với **Workers Paid, ảnh qua R2 custom domain, Cloudflare Access, reconciliation cho webhook, email retry và backup được kiểm thử**, đây là một kiến trúc rất hợp lý, tiết kiệm và sạch cho một cửa hàng nhỏ.
 
-[^1]: [developers.cloudflare.com](https://developers.cloudflare.com/d1/platform/limits/?utm_source=chatgpt.com)
-
-[^2]: [developers.cloudflare.com](https://developers.cloudflare.com/workers/platform/pricing/)
-
-[^3]: [developers.cloudflare.com](https://developers.cloudflare.com/workers/platform/limits/?utm_source=chatgpt.com)
-
-[^4]: [developers.cloudflare.com](https://developers.cloudflare.com/r2/buckets/public-buckets/?utm_source=chatgpt.com)
-
-[^5]: [developers.cloudflare.com](https://developers.cloudflare.com/d1/worker-api/d1-database/?utm_source=chatgpt.com)
-
-[^6]: [developers.cloudflare.com](https://developers.cloudflare.com/d1/platform/pricing/?utm_source=chatgpt.com)
-
-[^7]: [developers.cloudflare.com](https://developers.cloudflare.com/d1/configuration/data-location/?utm_source=chatgpt.com)
-
-[^8]: [developers.cloudflare.com](https://developers.cloudflare.com/d1/best-practices/read-replication/?utm_source=chatgpt.com)
-
-[^9]: [developers.cloudflare.com](https://developers.cloudflare.com/d1/reference/time-travel/?utm_source=chatgpt.com)
-
-[^10]: [developers.cloudflare.com](https://developers.cloudflare.com/workers-ai/platform/pricing/?utm_source=chatgpt.com)
-
 source: https://chatgpt.com/c/6a66bb69-ada0-83ec-9663-127862c03b7b

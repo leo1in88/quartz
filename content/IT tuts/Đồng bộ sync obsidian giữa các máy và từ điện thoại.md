@@ -12,4 +12,5 @@ export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
 # Chay script python bang duong dan co dau ngoac kep
 python3 "/Users/destiny/Library/Mobile Documents/iCloud~md~obsidian/Documents/Learningnewthings/obsidian_workflow.py"
 ```
+![Pasted image 20261012151014.png](https://drive.ttfy.cc/20261012151022_Pasted_image_20261012151014.png)
 Nhớ thay các biến đường dẫn ở các file khi xài trên máy mới.

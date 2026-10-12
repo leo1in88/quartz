@@ -6,8 +6,6 @@ Các đơn giản là sử dụng các python script đồng bộ thông qua git
 Để mở obsidian trên windows ta dùng file .vbs, còn bên Mac thì sẽ dùng Automator.
 
 [Launch_Obsidian.vbs](https://drive.ttfy.cc/20261012151826_Launch_Obsidian.vbs)
-[sync_r2.py](https://drive.ttfy.cc/20261012151827_sync_r2.py)
-[obsidian_workflow.py](https://drive.ttfy.cc/20261012151828_obsidian_workflow.py)
 
 ```Shell script
 # Nap bien moi truong de Automator nhan dien Homebrew va Python

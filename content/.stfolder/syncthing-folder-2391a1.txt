@@ -1,0 +1,5 @@
+# This directory is a Syncthing folder marker.
+# Do not delete.
+
+folderID: minh-obsidian
+created: 2026-05-03T15:45:56+07:00

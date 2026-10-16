@@ -1,4 +1,9 @@
 views:
+  - type: table
+    name: View
+    sort: []
+  - type: table
+    name: View 2
   - type: cards
     name: card
     filters:
@@ -9,3 +14,4 @@ views:
     image: note.cover
     cardSize: 270
     imageAspectRatio: 1.15
+    imageFit: contain

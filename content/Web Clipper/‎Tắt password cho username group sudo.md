@@ -1,5 +1,5 @@
 ---
-title: ‎Google Gemini
+title: Tắt password cho username group sudo
 source: https://gemini.google.com/u/1/app/0643112f4800e574?pageId=none
 author:
 published:

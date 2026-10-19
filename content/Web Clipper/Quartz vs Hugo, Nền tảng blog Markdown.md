@@ -1,14 +1,14 @@
 ---
-title: Quartz vs Hugo, Nền tảng blog Markdown
-source: https://gemini.google.com/u/1/app/a58c64d3096b3a95?pageId=none
+title: "‎Google Gemini"
+source: "https://gemini.google.com/u/1/app/a58c64d3096b3a95?pageId=none"
 author:
 published:
 created: 2026-04-18
-description: Meet Gemini, Google’s AI assistant. Get help with writing, planning, brainstorming, and more. Experience the power of generative AI.
+description: "Meet Gemini, Google’s AI assistant. Get help with writing, planning, brainstorming, and more. Experience the power of generative AI."
 tags:
-  - clippings
-  - blog
-  - obsidian
+  - "clippings"
+  - "blog"
+  - "obsidian"
 ---
 Quartz vs. Hugo: Nền tảng blog Markdown
 

@@ -1,0 +1,148 @@
+# AGENTS.md — Kim chỉ nam chọn thiết kế áo thun theo ảnh đầu vào
+
+> Tác vụ cốt lõi của workspace này: người dùng gửi 1 hình ảnh → chọn thiết kế phù hợp nhất trong bộ 45 thiết kế yêu thích (`Images/`) → trả kèm link Kittl để chỉnh sửa.
+> Tạo: 2026-10-17 • Nguồn sự thật về tên + link thiết kế: `style_design_list.md`
+
+---
+
+## 1. Nguyên tắc vàng: CHẤT LIỆU (medium) TRƯỚC — Ý NGHĨA (meaning) SAU
+
+Bài học quan trọng nhất (người dùng đã đính chính ngày 2026-10-17 — đừng lặp lại):
+
+- ❌ **ĐỪNG** chọn thiết kế chủ yếu theo ý nghĩa/chủ đề/vibe của ảnh (gia đình, mẹ & bé, mùa đông, tình cảm...).
+- ✅ **HÃY** xác định trước hết: **ảnh đầu vào là dạng hình ảnh nào?**
+  1. Ảnh chụp thực tế (real photograph)
+  2. Ảnh vẽ tay / minh họa (hand-drawn / illustration)
+  3. Hoạt hình / cartoon / anime
+  4. Vector phẳng (flat vector)
+  5. Nước màu (watercolor) / airbrush
+  6. Collage / photo-manipulation
+  7. 3D render
+- Lý do: mỗi thiết kế chỉ "ăn" được chất liệu tương thích — ảnh chụp thật đặt thẳng vào thiết kế vector/nước màu sẽ **vỡ phong cách ngay lập tức**.
+- Ý nghĩa/vibe/chủ đề CHỈ dùng làm tiêu chí **xếp hạng khi có nhiều ứng viên cùng khớp chất liệu**.
+
+### Lưu ý năng lực môi trường
+Nếu Run không xem trực tiếp được ảnh (model connection không image-capable) → dùng công cụ `image_recognition`. Prompt phải hỏi rõ về **MEDIUM/TECHNIQUE của từng phần tử**: photo hay drawn? Nếu có ảnh thật thì được xử lý thế nào (duotone / threshold / halftone / grain / cut-out / faded)?
+
+---
+
+## 2. Quy trình 5 bước
+
+### Bước 1 — Phân tích ảnh đầu vào
+Xác định: (a) **dạng/chất liệu ảnh** (quan trọng nhất), (b) bảng màu, (c) typography nếu có, (d) bố cục, (e) texture/hiệu ứng, (f) chủ đề/vibe (chỉ tham khảo phụ).
+
+### Bước 2 — Đối chiếu bảng phân loại chất liệu (mục 3)
+Thiết kế nào **chưa xác minh** → chạy `image_recognition` trên `Images/NN-tên.png` để xác định chất liệu TRƯỚC khi đề xuất. Không đoán mò.
+
+### Bước 3 — Chọn thiết kế
+- Ưu tiên thiết kế **khớp chất liệu trực tiếp**: ảnh thật → nhóm dùng ảnh thật; vector → nhóm vector...
+- Nhiều ứng viên cùng chất liệu → dùng vibe/chủ đề để xếp hạng.
+- Đưa **1 lựa chọn chính + tối đa 2 lựa chọn phụ** (xếp hạng rõ ràng).
+
+### Bước 4 — Khác chất liệu? BẮT BUỘC kèm hướng dẫn xử lý ảnh
+Nguyên văn yêu cầu người dùng: *"nếu chọn 1 phong cách thiết kế khác với phong cách ảnh được đưa vào, bạn phải gợi ý cách xử lý ảnh đầu vào như thế nào để phù hợp với phong cách thiết kế được chọn."*
+→ Dùng công thức ở mục 4.
+
+### Bước 5 — Trả kết quả (format chuẩn)
+```
+1. Phân tích ảnh đầu vào: dạng ảnh + đặc điểm ngắn gọn
+2. Lựa chọn #1: tên + số thứ tự + LINK KITTL + lý do khớp (chất liệu trước, vibe sau)
+3. (Tuỳ chọn) Lựa chọn #2, #3 cùng link
+4. (Bắt buộc nếu khác chất liệu) Hướng dẫn xử lý ảnh đầu vào từng bước
+```
+Link Kittl **luôn lấy từ cột "Link Kittl" trong `style_design_list.md`** — không tự suy đoán/tự viết URL.
+
+---
+
+## 3. Bảng phân loại chất liệu 45 thiết kế
+
+### A. DÙNG ẢNH CHỤP THẬT (đã xử lý) — chấp nhận ảnh thật làm nguyên liệu ✅
+| #  | Thiết kế | Cách ảnh gốc được xử lý |
+|----|----------|--------------------------|
+| 18 | Eternal Wishes | Ảnh chân dung người thật: washed-out kiểu xerox/sepia faded, tách nền, giấu sau/đan xen cụm hoa, nền đen |
+| 40 | New York Vintage | Ảnh skyline thật → threshold thành silhouette **1 màu mực đặc** (navy) + halftone chi tiết + distressed grain, nền kem |
+| 43 | Street Culture New York | Ảnh thật grayscale tương phản cao + grain photocopy, cắt khung chữ nhật cứng, đè chữ blackletter + script |
+
+### B. Vector / cartoon / minh họa phẳng — KHÔNG dùng ảnh thật
+| #  | Thiết kế | Chất liệu |
+|----|----------|-----------|
+| 17 | Retro Vintage Dog & Crocodile | Vector line-art mascot kiểu 70s, palette 2–3 màu |
+| 23 | Let's Go Ghouls | Vector cartoon phẳng, bubble letter pastel |
+| 25 | Chill Girl Summer | Retro flat vector (van/palm/sun) + distressed |
+| 30 | Tiny Treasures Flea Market | Vector kidcore comic, starburst, halftone grain nền |
+| 33 | Dolce Vita | Minh họa retro/risograph + halftone (vẽ tay, không phải ảnh) |
+| 35 | Theme Remix | Vector cartoon (phân tích: ếc đeo kính "Keep Learning" — có thể là remix chủ đề ếch của #37) |
+| 41 | Megacity Japanese Neon | Vector line-art + grunge, badge tròn, neon |
+| 44 | The World Is Yours | Vector pastel grunge, bubbly type, offset shadow |
+
+### C. Minh họa kỹ thuật vẽ tay — KHÔNG dùng ảnh thật
+| #  | Thiết kế | Chất liệu |
+|----|----------|-----------|
+| 9  | Cherry | Airbrush realistic 3D + retro typography |
+| 16 | Florida Wildlife | Woodcut / linocut scratchy hatching |
+| 19 | Sweet Dream Coquette | Nước màu pastel mềm, không viền cứng |
+| 22 | Outdoor Adventures Hiking | Pen-and-ink hatching + halftone, vintage national-park |
+
+### D. Chưa xác minh (30 thiết kế còn lại)
+`#1–8, #10–15, #20, #21, #24, #26–29, #31, #32, #34, #36–39, #42, #45`
+
+→ Khi cần đề xuất 1 trong các thiết kế này, **PHẢI phân tích medium bằng `image_recognition` trước** rồi cập nhật vào bảng trên.
+(Gợi ý theo tên — cần xác minh: #1 comic ink thể thao, #34/#42 western, #37 ếch cartoon, #45 cá sấu cartoon...)
+
+---
+
+## 4. Công thức xử lý ảnh đầu vào theo chất liệu đích
+
+### → Chất #18 Eternal Wishes (vintage faded — giữ được nhận diện khuôn mặt)
+1. Tách nền nhân vật (Kittl Background Remover / remove.bg)
+2. Desaturate → sepia hoặc duotone **theo palette thiết kế** (xanh sage + hồng pastel + kem, nền đen)
+3. Tăng tương phản nhẹ + nhấc đen (fade, milky)
+4. Phủ grain/nhiễm film — ảnh smartphone sắc nét phải được "làm cũ" thì mới hòa vào thiết kế
+5. Đặt nhân vật vào giữa cụm hoa theo bố cục gốc (chân dung giấu sau/đan xen hoa)
+
+### → Chất #40 New York Vintage (threshold silhouette 1 màu)
+1. Tách nền sát silhouette, **giữ nguyên dáng đặc trưng** (vd: hai má kề nhau = bóng song thân rất đẹp)
+2. Posterize/threshold về 1 màu mực đặc — mất chi tiết, chỉ còn khối bóng + khoảng âm bản khắc chi tiết (mắt, răng, viền mũ)
+3. Halftone chấm bi vùng chuyển tiếp + texture trầy xước screen-print
+4. Thay block ảnh gốc, giữ nguyên khung chữ block + script của thiết kế
+
+### → Chất #43 Street Culture NY (photocopy zine)
+1. Crop ảnh thành khung chữ nhật cứng
+2. Grayscale → đẩy tương phản mạnh (crush đen + blown trắng, mất midtone)
+3. Grain muối tiêu dày kiểu photocopy/xerox
+4. Đè typography blackletter lớn + script mảnh + badge
+
+### → Chất vector / cartoon / nước màu / khắc gỗ (#9, #16, #17, #19, #22, #23, #25, #30, #33, #35, #41, #44...)
+Ảnh chụp thật **KHÔNG đặt trực tiếp** — phải chuyển đổi chất liệu:
+- **(a) AI style transfer / image-to-image**: generate lại thành minh họa đúng chất, dùng ảnh gốc làm reference để giữ nguyên dáng/composition → nhanh nhất
+- **(b) Kittl**: dùng ảnh làm lớp reference rồi vẽ lại / trace thủ công
+- **(c) Threshold cao rồi vectorize** — chỉ phù hợp hướng silhouette
+Sau khi chuyển đổi, kiểm tra lại kết quả bằng `image_recognition` trước khi bàn giao.
+
+### Nguyên tắc chung khi xử lý ảnh
+- **Khớp palette**: nhuộm ảnh theo bảng màu của thiết kế đích
+- **Texture đồng bộ**: phủ grain/distressed toàn bộ để ảnh xử lý không "lệch tông" so với phần gốc của thiết kế
+- **Giữ điểm ăn tiền** của ảnh gốc (dáng, biểu cảm, chi tiết nhận diện)
+- **Kiểm tra lại** bằng `image_recognition` (hỏi có lỗi kỹ thuật: banding, vỡ shape, mất chi tiết không) trước khi bàn giao
+
+---
+
+## 5. Nguồn dữ liệu trong workspace
+
+| File/Nội dung | Vai trò |
+|---------------|---------|
+| `Images/` | 45 PNG thiết kế yêu thích (`NN-tên.png`, ~900×1150) — nguyên liệu đối chiếu |
+| `style_design_list.md` | Bảng tổng hợp: tên, **Link Kittl**, link R2, phân nhóm chủ đề — **nguồn duy nhất của link** |
+
+Phân nhóm chủ đề (tham khảo PHỤ, chỉ dùng xếp hạng sau khi khớp chất liệu):
+Beach/Surf/Summer 10 • Flowers/Retro/Botanical 7 • Dark/Skull/Halloween 6 • Motivational 5 • New York/Street 5 • Wild West 4 • Outdoor/Travel 3 • Khác 5.
+
+---
+
+## 6. Checklist nhanh khi nhận ảnh mới
+
+- [ ] Ảnh đầu vào thuộc dạng nào? (chụp thật / vẽ tay / hoạt hình / vector / nước màu...)
+- [ ] Đã đối chiếu bảng mục 3 chưa? (thiết kế chưa xác minh → phân tích trước)
+- [ ] Có thiết kế khớp chất liệu trực tiếp không? Nếu không → chọn gần nhất + công thức xử lý
+- [ ] Lựa chọn chính + phụ đã có link Kittl từ `style_design_list.md` chưa?
+- [ ] Thiết kế chọn khác chất liệu → đã kèm hướng dẫn xử lý từng bước chưa?

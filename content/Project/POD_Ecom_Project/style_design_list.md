@@ -1,7 +1,7 @@
 # Design Style For T-shirt — MIdeas (FigJam Board)
 
 Nguồn: [FigJam Board "MIdeas"](https://www.figma.com/board/W3Qf2NvBHJv4KHZDQ6U2Ay/MIdeas)
-Xuất ngày: 2026-10-14 • Cập nhật: 2026-10-16 • Tổng cộng: **45 thiết kế**
+Xuất ngày: 2026-10-14 • Tổng cộng: **44 thiết kế**
 
 > Ảnh được xuất từ image fills gốc (original resolution) của từng node trên board.
 > Ảnh gốc lưu trên Cloudflare R2: `https://drive.ttfy.cc/pod-ecom/` (bucket `drive`, prefix `pod-ecom/`) — cột **Link R2** trỏ thẳng tới từng file.
@@ -54,7 +54,6 @@ Xuất ngày: 2026-10-14 • Cập nhật: 2026-10-16 • Tổng cộng: **45 th
 | 42  | `42-wild-west-cowgirl-up-2.png`          | Wild West — Cowgirl Up (bản 2)                     | [kittl.com/design/Wild-West-Cowgirl-Up-R2ypQy1o](https://www.kittl.com/design/Wild-West-Cowgirl-Up-R2ypQy1o)                                                         | [xem](https://drive.ttfy.cc/pod-ecom/42-wild-west-cowgirl-up-2.png) |
 | 43  | `43-street-culture-new-york.png`         | Street Culture New York T-Shirt                    | [kittl.com/design/Street-Culture-New-York-T-Shirt-zfGWaaup](https://www.kittl.com/design/Street-Culture-New-York-T-Shirt-zfGWaaup)                                   | [xem](https://drive.ttfy.cc/pod-ecom/43-street-culture-new-york.png) |
 | 44  | `44-the-world-is-yours.png`              | The World Is Yours — Inspirational T-Shirt Designs | [kittl.com/design/The-World-is-Yours-Inspirational-T-Shirt-Designs-lH36uXHo](https://www.kittl.com/design/The-World-is-Yours-Inspirational-T-Shirt-Designs-lH36uXHo) | [xem](https://drive.ttfy.cc/pod-ecom/44-the-world-is-yours.png) |
-| 45  | `45-funny-crocodile-cartoon-croc-summer.png` | Funny Crocodile Cartoon Croc Summer             | [kittl.com/design/Funny-Crocodile-Cartoon-Croc-Summer--VgXEIdd5](https://www.kittl.com/design/Funny-Crocodile-Cartoon-Croc-Summer--VgXEIdd5)                             | [xem](https://drive.ttfy.cc/pod-ecom/45-funny-crocodile-cartoon-croc-summer.png) |
 
 ## Phân nhóm chủ đề (tham khảo)
 
@@ -62,7 +61,7 @@ Xuất ngày: 2026-10-14 • Cập nhật: 2026-10-16 • Tổng cộng: **45 th
 |--------|---|
 | ✨ Motivational | 1, 2, 3, 37, 44 |
 | 🌸 Flowers / Retro / Botanical | 9, 10, 11, 12, 13, 14, 15 |
-| 🌊 Beach / Surf / Summer | 4, 21, 24, 25, 27, 28, 29, 31, 32, 45 |
+| 🌊 Beach / Surf / Summer | 4, 21, 24, 25, 27, 28, 29, 31, 32 |
 | 🌙 Dark / Skull / Halloween | 5, 6, 7, 8, 18, 23 |
 | 🗽 New York / Street / Urban | 38, 39, 40, 41, 43 |
 | 🤠 Wild West | 34, 35, 36, 42 |

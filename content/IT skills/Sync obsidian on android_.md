@@ -1,0 +1,1 @@
+Đối với ios , sử dụng icloud trên macos ios và pc là quá tuyệt vời, đối với android sau khi thử syncthing, mega cloud, thì phương án tốt nhất vẫn là tạo thư mục android mobile, sau đó sử dụng plugin git để pull, push note chỉ trong thư mục đó, đối với mobile thì sử dụng git sync app hoặc puppy git app. Như vậy là phương án tối ưu và tốt nhất.

@@ -38,7 +38,6 @@ grep -i "(EE)" /home/minh/.xorgxrdp.*.log
 
 ---
 
-
 Chào bạn, combo E5 2680 v4 và RTX 3060 là một hệ thống rất mạnh mẽ và lý tưởng cho các tác vụ máy chủ. Khác với Virtual Machine (VM) sử dụng PCIe passthrough nguyên cụm, LXC (Linux Container) chia sẻ chung kernel với Proxmox host. Do đó, nguyên tắc cốt lõi ở đây là: **Cài driver trên Host -> Đẩy device nodes vào cấu hình LXC -> Cài lại đúng bản driver đó trong LXC nhưng bỏ qua kernel module.**
 
 Việc cấu hình thành công sẽ giúp các công cụ duyệt web và các luồng tự động hóa chạy trong LXC tận dụng được khả năng tăng tốc phần cứng của RTX 3060 để render cực kỳ nhanh và mượt.
@@ -55,7 +54,6 @@ Bash
 
 `# Cap nhat he thong va cai dat cac goi can thiet  
 apt update && apt upgrade -y
-
 # Cai dat pve-headers tuong ung voi kernel hien tai cung cac cong cu build
 
 apt install pve-headers-$(uname -r) build-essential dkms -y`
@@ -67,7 +65,6 @@ Bash
 `# Tao file de vo hieu hoa nouveau  
 echo "blacklist nouveau" > /etc/modprobe.d/blacklist-nouveau.conf  
 echo "options nouveau modeset=0" >> /etc/modprobe.d/blacklist-nouveau.conf
-
 # Cap nhat lai initramfs de ap dung thay doi
 
 update-initramfs -u
@@ -105,7 +102,6 @@ Bash
 ### 3. Xác định Device ID của GPU
 
 Bạn cần kiểm tra Major ID của card đồ họa trên host để cấp quyền cho LXC. Chạy lệnh:
-
 Bash
 
 `# Kiem tra danh sach thiet bi nvidia tren he thong ls -al /dev/nvidia*`
@@ -119,7 +115,6 @@ Sau đó chạy lệnh
 
 chmod 666 /dev/nvidia*  
 chmod 666 /dev/dri/*
-
 ## Cách để không phải chạy lại lệnh này sau mỗi lần Reboot
 
 Để máy host tự động tạo các file này và cấp quyền 666 mỗi khi khởi động, bạn nên thiết lập **udev rules**. Điều này cực kỳ quan trọng nếu bạn muốn các container LXC luôn có GPU để dùng mà không cần bạn can thiệp thủ công.

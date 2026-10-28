@@ -1,9 +1,4 @@
 views:
-  - type: table
-    name: View
-    sort: []
-  - type: table
-    name: View 2
   - type: cards
     name: card
     filters:

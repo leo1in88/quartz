@@ -1,0 +1,11 @@
+views:
+  - type: cards
+    name: card
+    filters:
+      and:
+        - file.inFolder("Art Design/design chose project")
+    order:
+      - file.name
+    image: note.cover
+    cardSize: 270
+    imageAspectRatio: 1.15

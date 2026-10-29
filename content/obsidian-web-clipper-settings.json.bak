@@ -1,0 +1,179 @@
+{
+  "general_settings": {
+    "betaFeatures": false,
+    "legacyMode": false,
+    "openBehavior": "popup",
+    "saveBehavior": "addToObsidian",
+    "showMoreActionsButton": false,
+    "silentOpen": true
+  },
+  "highlighter_settings": {
+    "alwaysShowHighlights": true,
+    "highlightBehavior": "replace-content",
+    "highlighterEnabled": true
+  },
+  "interpreter_settings": {
+    "defaultPromptContext": "{{selectorHtml:body|markdown}}",
+    "interpreterAutoRun": false,
+    "interpreterEnabled": true,
+    "interpreterModel": "1792579934058",
+    "models": [
+      {
+        "enabled": false,
+        "id": "1792898223236",
+        "name": "mimo v2.6",
+        "providerId": "1792579926649",
+        "providerModelId": "xiaomi/mimo-v2.6-flash"
+      },
+      {
+        "enabled": true,
+        "id": "1792579934058",
+        "name": "glm 5.3 flash",
+        "providerId": "1792579926649",
+        "providerModelId": "z-ai/glm-5.3-flash"
+      }
+    ],
+    "providers": [
+      {
+        "apiKey": "",
+        "apiKeyRequired": true,
+        "baseUrl": "https://openrouter.ai/api/v1/chat/completions",
+        "id": "1792579926649",
+        "name": "OpenRouter"
+      }
+    ]
+  },
+  "migrationVersion": 1,
+  "property_types": [
+    {
+      "defaultValue": "{{url}}",
+      "name": "source",
+      "type": "text"
+    },
+    {
+      "defaultValue": "{{author|split:\", \"|wikilink|join}}",
+      "name": "author",
+      "type": "multitext"
+    },
+    {
+      "name": "description",
+      "type": "text"
+    },
+    {
+      "name": "tags",
+      "type": "multitext"
+    },
+    {
+      "defaultValue": "{{title}}",
+      "name": "title",
+      "type": "text"
+    },
+    {
+      "defaultValue": "{{published}}",
+      "name": "published",
+      "type": "date"
+    },
+    {
+      "defaultValue": "{{date}}",
+      "name": "created",
+      "type": "date"
+    }
+  ],
+  "reader_settings": {
+    "appearance": "auto",
+    "autoScroll": true,
+    "blendImages": true,
+    "colorLinks": false,
+    "customCss": "",
+    "darkTheme": "same",
+    "defaultFont": "",
+    "followLinks": true,
+    "fontSize": 9,
+    "fonts": [],
+    "highlightActiveLine": true,
+    "lightTheme": "everforest",
+    "lineHeight": 1.6,
+    "maxWidth": 38,
+    "pinPlayer": true
+  },
+  "stats": {
+    "addToObsidian": 3,
+    "copyToClipboard": 0,
+    "saveFile": 0,
+    "share": 0
+  },
+  "template_1767842049623tlmbxbkdb": [
+    "ᯡࡅ䁬⁼ၦǸ΀‼ÐӠ͚Ԃ⦠映⸠氥堤〣敠欨咠ڤĬᐪㆤyₖ帠ㆠŀ≀ၔ漽䀥喨ᔾ妼ü怣氡Ḙ䖉甂⟭嶦冠㦎Ḡ拺ᔯ符ņ๧䁏巢䀧∙堠慒ᡗ寬໠ݐ͘ᕬ䘡ඖᆲ㛫⾂⒖ªᎲⒾ֌副ڣᬣ狰殘磔⹜ᤈV吲࿨䅠愃焨䐰㲌⪶嬩*懱᥻硼渪啮ᤠᗯ䬤犻႙㷼Ⳮ⡸᭺ଷl‣᪁怡Ỿ爥汤瘪ᇏ᫱ସ䆆୫၇ᏹὓ㷚歁筮䤄⎼g✼༤~㈼ѥ嶘繇དᆄ洬杔ⵒ咚᷀冏ᡂ⍠=⬬Ⓞठ㮸ལƢ癝hÌ᪐倅宠㮘࠱樽嶃䉏᪐沨ᴉ掀䣯寯ᥱ䅈噣慠沗䜼嬡狥Ⱜ囋岠㞀ᐼ嶂୤䅀バᕯ᥀㌑夻Ȉك൶箃὇Ȩ㏌₟垸ߕ⛰⼬⋁獴ң䙛Ἠ໇傤⹤䬱窅燈兕㪉汣ぜ㜦ℎ䢩掼撌Į䄑䝹㊉捥⧭␢ጥ←䇞瀡㪌फ⌠∱㕾傊㰎ဠ "
+  ],
+  "template_1768364044473yk02dnq7i": [
+    "ᯡࡅ䁬⁼ၦǸ΀Π晄ˠ͆硺Ŝͻ〩䄠㬡ษ䄠ന䨤ᠫ〴挨ƅϕ瀣ఠढᄡǆ碴Mౠĸ㩩〦猠ྀԍ恝⎫7ᝆ䫊ء旸㠣ࢋ㟽永ླྀẠᬮÞ睒=篆怣Ѽ惾潐┠᳠ഃᙐᠦ啈٩殕ⶾ廸H乫檘旒䤼/ڌ߽⫍焇⥘㢃倠浰⑗ᄵƣ䏤怳ㅴࣤOⓌ䖰泡㜂䛈Ž樢燅ଫ䚋䬠玹㰅ᤕӵ渣⥨ᷡ䋵֧㟁㆑碈售㘠ᷠ૧劬ൂ捇が᧝⒦䍂ⱶ㖨ą縞ഠЅங䅝ᨠċᆬႹ౤䁰揬ف䃡┸䊤v啘ⷑƖ緌ۡ䱼❁憱ᳮ㛒֒疎Gཨ祤Sㅨ些桦㟤£櫺ࡩ摩ǫ⫳᜵⊲瞺ⳃ䦴桁乚伀㧾ֆ㩗཭ϲ吱ᰩ؄⁪ᅋ甀์㑶⤥㓡⡼ኔ皛⡆䯇᱅⍀ױ淴〤ℱ吺䛀㼂  "
+  ],
+  "template_17700022932977cuw8dh2l": {
+    "id": "17700022932977cuw8dh2l",
+    "name": "Mặc định",
+    "behavior": "create",
+    "noteNameFormat": "{{title}}",
+    "path": "Web clipper",
+    "noteContentFormat": "{{content}}\n\nsource: {{url}}",
+    "context": "",
+    "properties": [
+      {
+        "id": "177000229329776fh2kw7v",
+        "name": "title",
+        "value": "{{title}}",
+        "type": "text"
+      },
+      {
+        "id": "177000229329732hko6dy7",
+        "name": "source",
+        "value": "{{url}}",
+        "type": "text"
+      },
+      {
+        "id": "1770002293297d4k1wzyka",
+        "name": "tags",
+        "value": "{{\\\"Generate 3 one-word tags for the article; these keywords should be specifically relevant to the content, rather than being generic terms.\\\"}}",
+        "type": "multitext"
+      }
+    ],
+    "triggers": []
+  },
+  "template_1792808808779epgz1h9b5": {
+    "id": "1792808808779epgz1h9b5",
+    "name": "gemini, chatgpt, claude",
+    "behavior": "create",
+    "noteNameFormat": "{{title}}",
+    "path": "Web clipper",
+    "noteContentFormat": "{{\"a summary of the gemini or chatgpt answer\"}}\n--------------------\n{{content}}\n\nsource: {{url}}",
+    "context": "",
+    "properties": [
+      {
+        "id": "177000229329776fh2kw7v",
+        "name": "title",
+        "value": "",
+        "type": "text"
+      },
+      {
+        "id": "177000229329732hko6dy7",
+        "name": "source",
+        "value": "{{url}}",
+        "type": "text"
+      },
+      {
+        "id": "1770002293297d4k1wzyka",
+        "name": "tags",
+        "value": "clippings",
+        "type": "multitext"
+      }
+    ],
+    "triggers": [
+      "https://gemini.google.com",
+      "https://chatgpt.com"
+    ]
+  },
+  "template_list": [
+    "17700022932977cuw8dh2l",
+    "1792808808779epgz1h9b5"
+  ],
+  "vaults": []
+}

@@ -110,6 +110,6 @@ Viện Tiêu chuẩn và Công nghệ Quốc gia Mỹ (NIST) vừa chính thức
 
 ## Phần 4: GitHub Trending top 3
 
-- **[4.1] `vercel-labs/agent-desktop`** (Rust) — 9,724 sao (+2,275 hôm nay). Command-line interface cho AI agents thực hiện tác vụ trên desktop.
-- **[4.2] `thedotmack/claude-mem`** (TypeScript) — 110,754 sao (+1,803 hôm nay). Công cụ lưu trữ ngữ cảnh bền vững xuyên suốt các phiên làm việc cho Claude Code, Gemini, Hermes, Copilot.
-- **[4.3] `D4Vinci/Scrapling`** (Python) — 92,891 sao (+706 hôm nay). Framework web scraping xử lý mọi dạng từ request đơn giản đến crawl quy mô lớn.
+- **[4.1] [vercel-labs/agent-desktop](https://github.com/vercel-labs/agent-desktop)** (Rust) — 9,724 sao (+2,275 hôm nay). Command-line interface cho AI agents thực hiện tác vụ trên desktop.
+- **[4.2] [thedotmack/claude-mem](https://github.com/thedotmack/claude-mem)** (TypeScript) — 110,754 sao (+1,803 hôm nay). Công cụ lưu trữ ngữ cảnh bền vững xuyên suốt các phiên làm việc cho Claude Code, Gemini, Hermes, Copilot.
+- **[4.3] [D4Vinci/Scrapling](https://github.com/D4Vinci/Scrapling)** (Python) — 92,891 sao (+706 hôm nay). Framework web scraping xử lý mọi dạng từ request đơn giản đến crawl quy mô lớn.

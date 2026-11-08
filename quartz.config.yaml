@@ -16,8 +16,8 @@ configuration:
     fontOrigin: googleFonts
     cdnCaching: true
     typography:
-      header: Schibsted Grotesk
-      body: JetBrains Mono
+      header: Montserrat
+      body: Montserrat
       code: IBM Plex Mono
     colors:
       lightMode:

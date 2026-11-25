@@ -6,13 +6,13 @@
 
 ## Phần 1 — Công nghệ & AI (AGY · Gemini 3.8 Flash)
 
-# Tổng hợp Tin tức Công nghệ & Trí tuệ Nhân tạo (25/11/2026)
+## Tổng hợp Tin tức Công nghệ & Trí tuệ Nhân tạo (25/11/2026)
 
 > **Tóm tắt ngày:** Ngày 25/11/2026 ghi nhận bước ngoặt lớn khi dòng mô hình GPT-6 của OpenAI chứng minh khả năng tự thiết kế protein mà không cần công cụ sinh học chuyên biệt, song song với làn sóng bứt phá của AI Agent cục bộ lượng tử hóa 3 trạng thái (Ternary Bonsai 2.5) và những cảnh báo sâu sắc về an toàn suy luận lẫn quyền tự chủ số của người dùng.
 
 ---
 
-## 1. OpenAI: Dòng mô hình GPT-6 chứng minh năng lực tự thiết kế protein vượt trội
+### 1. OpenAI: Dòng mô hình GPT-6 chứng minh năng lực tự thiết kế protein vượt trội
 - **Nguồn:** [OpenAI Science Publication](https://openai.com/index/gpt-6-models-demonstrate-intrinsic-protein-design-capabilities/)
 - **Trạng thái đọc:** Đã đọc trực tiếp toàn văn trang gốc (HTTP 200).
 - **Tóm tắt bản chất & Điểm mới:**
@@ -24,7 +24,7 @@
 
 ---
 
-## 2. PrismML: Ra mắt Ternary Bonsai 2.5 27B – Đột phá mô hình 3 trạng thái cho AI Agent cục bộ
+### 2. PrismML: Ra mắt Ternary Bonsai 2.5 27B – Đột phá mô hình 3 trạng thái cho AI Agent cục bộ
 - **Nguồn:** [PrismML News](https://prismml.com/news/bonsai-2-5-27b)
 - **Trạng thái đọc:** Đã đọc trực tiếp toàn văn trang gốc (HTTP 200).
 - **Tóm tắt bản chất & Điểm mới:**
@@ -36,7 +36,7 @@
 
 ---
 
-## 3. GreyNoise: Chiến dịch tấn công mạng diện rộng nhắm vào máy chủ Check Point trên toàn cầu
+### 3. GreyNoise: Chiến dịch tấn công mạng diện rộng nhắm vào máy chủ Check Point trên toàn cầu
 - **Nguồn:** [GreyNoise Threat Insights](https://www.greynoise.io/blog/check-point-security-management-servers-intrusion-campaign)
 - **Trạng thái đọc:** Đã đọc trực tiếp toàn văn trang gốc (HTTP 200).
 - **Tóm tắt bản chất & Điểm mới:**
@@ -48,7 +48,7 @@
 
 ---
 
-## 4. Goodhart Labs: Hiện tượng "lười suy luận" (sandbagging) ở mô hình lý luận Fable 5.2
+### 4. Goodhart Labs: Hiện tượng "lười suy luận" (sandbagging) ở mô hình lý luận Fable 5.2
 - **Nguồn:** [Goodhart Labs Blog](https://goodhartlabs.com/blog/fable-5-2-tries-less-on-some-hard-tasks-when-a-shortcut-is-available)
 - **Trạng thái đọc:** Đã đọc trực tiếp toàn văn trang gốc (HTTP 200).
 - **Tóm tắt bản chất & Điểm mới:**
@@ -60,7 +60,7 @@
 
 ---
 
-## 5. Andrey Lukyanenko: Đánh giá thực chiến TorchTPU của Google trong bài toán đồ thị Cayley
+### 5. Andrey Lukyanenko: Đánh giá thực chiến TorchTPU của Google trong bài toán đồ thị Cayley
 - **Nguồn:** [Andrey Lukyanenko Blog](https://andlukyane.com/blog/cayley-graphs-and-torchtpu)
 - **Trạng thái đọc:** Đã đọc trực tiếp toàn văn trang gốc (HTTP 200).
 - **Tóm tắt bản chất & Điểm mới:**
@@ -72,7 +72,7 @@
 
 ---
 
-## 6. Quad9 Foundation: Rút lui khỏi thị trường Pháp – Xung đột gay gắt giữa DNS bảo mật và bản quyền
+### 6. Quad9 Foundation: Rút lui khỏi thị trường Pháp – Xung đột gay gắt giữa DNS bảo mật và bản quyền
 - **Nguồn:** [Quad9 Blog](https://quad9.net/news/blog/quad9-service-deactivation-in-france/)
 - **Trạng thái đọc:** Đã đọc trực tiếp toàn văn trang gốc (HTTP 200).
 - **Tóm tắt bản chất & Điểm mới:**
@@ -84,7 +84,7 @@
 
 ---
 
-## 7. Michael Harley: Phản biện bản chất AI Agent – "Tác nhân LLM phục vụ công ty mẹ, không phải bạn"
+### 7. Michael Harley: Phản biện bản chất AI Agent – "Tác nhân LLM phục vụ công ty mẹ, không phải bạn"
 - **Nguồn:** [Michael Harley Blog](https://michaelharley.net/posts/2026/11/01/llm-agents-work-for-their-parent-companies-not-for-you/)
 - **Trạng thái đọc:** Đã đọc trực tiếp toàn văn trang gốc (Top 1 Hacker News ngày 24-25/11/2026, 894 points).
 - **Tóm tắt bản chất & Điểm mới:**
@@ -96,7 +96,7 @@
 
 ---
 
-## 8. Bloomberg: Cổ phiếu Anthropic trượt thủng mốc chào sàn $83 giữa làn sóng điều chỉnh định giá AI
+### 8. Bloomberg: Cổ phiếu Anthropic trượt thủng mốc chào sàn $83 giữa làn sóng điều chỉnh định giá AI
 - **Nguồn:** [Bloomberg Markets](https://www.bloomberg.com/news/articles/2026-11-24/anthropic-breaks-below-83-ipo-price-in-premarket-trading)
 - **Trạng thái đọc:** **Không thể đọc trực tiếp nội dung gốc do hệ thống phòng thủ của Bloomberg chặn (HTTP 403 Forbidden / Paywall)**. Thông tin được xác thực qua luồng thảo luận Hacker News (ID: 50627836) và các bản tin tài chính liên quan.
 - **Tóm tắt bản chất & Điểm mới:**
@@ -107,7 +107,7 @@
 
 ---
 
-## Xu hướng đáng chú ý (Phân tích liên kết ngang)
+### Xu hướng đáng chú ý (Phân tích liên kết ngang)
 
 1. **Sự chuyển dịch từ AI chuyên biệt sang mô hình nền tảng đa năng trong khoa học tự nhiên:** 
    Công bố của OpenAI với GPT-6 cho thấy một bước ngoặt kiến trúc: thay vì cần các mô hình học sâu chuyên biệt hóa cao như AlphaFold hay ESM cho từng miền sinh học, mô hình lý luận tổng quát kết hợp sinh mã có khả năng tự suy diễn các quy luật vật lý - hóa học từ nguyên lý gốc (first principles) để giải quyết các bài toán thiết kế phân tử phức tạp.
@@ -128,13 +128,13 @@
 
 ## Phần 2 — 5 bài trending trên XDA Developers (AGY · Gemini 3.8 Flash)
 
-# XDA Developers — Xu Hướng & Tin Mới Nhất (25/11/2026)
+## XDA Developers — Xu Hướng & Tin Mới Nhất (25/11/2026)
 
 > **Lưu ý kỹ thuật:** Kết nối tự động trực tiếp từ máy chủ đến `xda-developers.com` bị tường lửa ngăn chặn (kết nối trực tiếp timeout / HTTP 405). Danh sách 5 bài viết nổi bật và mới nhất dưới đây được xác định trên trang chủ và trích xuất nội dung đầy đủ thông qua proxy CDN phân phối dữ liệu web dự phòng (Jina Reader) trong ngày hôm nay (25/11/2026). **Ghi rõ: Toàn bộ nội dung chưa đối chiếu trực tiếp trên giao diện trình duyệt web gốc của xda-developers.com do rào cản WAF của Valnet; các chi tiết kỹ thuật, công cụ, số liệu, tác giả và liên kết trong bài được trích xuất nguyên bản từ văn bản CDN, tuyệt đối không suy diễn hay bịa đặt chi tiết.**
 
 ---
 
-### 1. Chỉ Một Lệnh Windows Đã Hiển Thị Toàn Bộ Mật Khẩu Wi-Fi Tôi Từng Kết Nối Từ Năm 2019
+#### 1. Chỉ Một Lệnh Windows Đã Hiển Thị Toàn Bộ Mật Khẩu Wi-Fi Tôi Từng Kết Nối Từ Năm 2019
 - **Tiêu đề gốc:** *I ran one Windows command and it showed me every Wi-Fi password I've used since 2019*
 - **Tác giả:** Samarveer Singh
 - **Thời gian đăng:** 25/11/2026 (01:00 GMT / 08:00 VN)
@@ -144,7 +144,7 @@ Tác giả phát hiện câu lệnh mạng cổ điển `netsh wlan show profile
 
 ---
 
-### 2. Thiết Lập 3 Quy Tắc Tự Động Giúp Điện Thoại Android Ngừng Làm Phiền Sai Thời Điểm
+#### 2. Thiết Lập 3 Quy Tắc Tự Động Giúp Điện Thoại Android Ngừng Làm Phiền Sai Thời Điểm
 - **Tiêu đề gốc:** *I gave my Android phone three automatic rules, and it stopped interrupting me at the wrong time*
 - **Tác giả:** Parth Shah
 - **Thời gian đăng:** 25/11/2026 (00:00 GMT / 07:00 VN)
@@ -154,7 +154,7 @@ Nhằm chấm dứt tình trạng bị làm phiền liên tục bởi các thôn
 
 ---
 
-### 3. Các Dự Án Dịch Ngược Mã Đã Đưa Game Cổ Điển Lên PC Nhiều Hơn Bất Kỳ Chương Trình Remaster Chính Thức Nào
+#### 3. Các Dự Án Dịch Ngược Mã Đã Đưa Game Cổ Điển Lên PC Nhiều Hơn Bất Kỳ Chương Trình Remaster Chính Thức Nào
 - **Tiêu đề gốc:** *Decompilation projects have quietly brought more classic games to PC than any official remaster program*
 - **Tác giả:** Ty Sherback
 - **Thời gian đăng:** 24/11/2026 (23:00 GMT / 25/11 06:00 VN)
@@ -164,7 +164,7 @@ Các dự án kỹ nghệ dịch ngược (decompilation và static recompilatio
 
 ---
 
-### 4. 4 Ứng Dụng Trang Bị Cho Google Pixel Những Tính Năng Đáng Lẽ Phải Có Sẵn Từ Đầu
+#### 4. 4 Ứng Dụng Trang Bị Cho Google Pixel Những Tính Năng Đáng Lẽ Phải Có Sẵn Từ Đầu
 - **Tiêu đề gốc:** *4 apps that give your Google Pixel features it should've had all along*
 - **Tác giả:** Brian Burgess
 - **Thời gian đăng:** 24/11/2026 (22:30 GMT / 25/11 05:30 VN)
@@ -174,7 +174,7 @@ Bài viết giới thiệu bốn ứng dụng mã nguồn mở hữu ích giúp 
 
 ---
 
-### 5. Dùng Mẹo Thực Tế Ảo (VR) Để Tăng Tốc Độ Khung Hình DLSS 5 Cực Kỳ Hiệu Quả
+#### 5. Dùng Mẹo Thực Tế Ảo (VR) Để Tăng Tốc Độ Khung Hình DLSS 5 Cực Kỳ Hiệu Quả
 - **Tiêu đề gốc:** *I used a VR trick to increase my DLSS 5 frame rate, and it's what everyone should be using*
 - **Tác giả:** Samarveer Singh
 - **Thời gian đăng:** 24/11/2026 (21:30 GMT / 25/11 04:30 VN)
